@@ -3,7 +3,8 @@ const router = express.Router();
 
 router.get("/", (req,res)=>{
     var query = `
-        SELECT * FROM company.main_view
+        SELECT *, Active=1 as Active 
+        FROM company.main_view
         LIMIT 10`;
 
     connection.query(query,(err,data) => {
@@ -14,7 +15,7 @@ router.get("/", (req,res)=>{
 
 router.get("/search", (req,res)=>{
     var query = `
-        SELECT * FROM company.main_view
+        SELECT *, Active=1 as Active FROM company.main_view
         WHERE company.main_view.Name LIKE ${connection.escape(req.query.search + "%")}
         LIMIT ${connection.escape(+req.query.limit)} 
         OFFSET ${connection.escape(+req.query.offset)}`;

@@ -8,8 +8,7 @@ const department = require('./routes/department');
 var config = require("./config");
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended:true}));
-global.connection = db.createConnection( config["connection"]);
-
+global.connection = db.createConnection(config["connection"]);
 app.use(cors());
   
 
