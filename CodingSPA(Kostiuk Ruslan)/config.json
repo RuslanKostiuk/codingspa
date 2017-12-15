@@ -1,0 +1,9 @@
+{
+    "port":8080,
+    "connection":{
+        "host":"localhost",
+        "database":"Company",
+        "user":"root",
+        "password":"rula5575"
+    }
+}
