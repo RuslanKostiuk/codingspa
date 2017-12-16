@@ -5,7 +5,8 @@ router.get("/", (req,res)=>{
     var query = `
         SELECT *, Active=1 as Active 
         FROM company.main_view
-        LIMIT 10`;
+        LIMIT ${connection.escape(+req.query.limit)} 
+        OFFSET ${connection.escape(+req.query.offset)}`;
 
     connection.query(query,(err,data) => {
         if(err) return console.log(err);
@@ -23,6 +24,7 @@ router.get("/search", (req,res)=>{
 
     connection.query(query,(err,data) => {
         if(err) return console.log(err);
+        
         res.send(data);
     });
 })
