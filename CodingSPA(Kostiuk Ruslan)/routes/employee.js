@@ -18,7 +18,8 @@ router.get("/search", (req,res)=>{
         SELECT *, Active=1 as Active FROM company.main_view
         WHERE company.main_view.Name LIKE ${connection.escape(req.query.search + "%")}
         LIMIT ${connection.escape(+req.query.limit)} 
-        OFFSET ${connection.escape(+req.query.offset)}`;
+        OFFSET ${connection.escape(+req.query.offset)}
+        `;
 
     connection.query(query,(err,data) => {
         if(err) return console.log(err);
@@ -48,8 +49,10 @@ router.delete("/delete", (req, res) => {
     });
 });
 
-router.put("/update",(req, res)=>{
+router.put("/update",(req, res) => {
+
     var query = 'update employees set ? where idEmployee=?';
+    
     connection.query(query, [req.body.employee, req.body.employee.idEmployee], (err, data) => {
         if(err) return console.log(err);
         res.send(data);

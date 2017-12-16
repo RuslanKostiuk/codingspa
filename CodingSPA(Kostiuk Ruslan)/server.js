@@ -6,10 +6,12 @@ const cors = require("cors");
 const employee = require('./routes/employee');
 const department = require('./routes/department');
 var config = require("./config");
+app.use(cors());
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 global.connection = db.createConnection(config["connection"]);
-app.use(cors());
+
   
 
 connection.connect(function(err){
