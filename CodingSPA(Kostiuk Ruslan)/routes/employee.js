@@ -25,15 +25,30 @@ router.get("/search", (req,res)=>{
         SELECT *, Active=1 as Active FROM company.main_view
         WHERE company.main_view.Name LIKE ${connection.escape(req.query.search + "%")}
         LIMIT ${connection.escape(+req.query.limit)} 
-        OFFSET ${connection.escape(+req.query.offset)}
-        `;
+        OFFSET ${connection.escape(+req.query.offset)};
+        SELECT Count(Employees.idEmployee) AS TotalItems FROM Employees
+        WHERE company.main_view.Name LIKE ${connection.escape(req.query.search + "%")}`;
 
     connection.query(query,(err,data) => {
         if(err) return console.log(err);
-        res.send(data);
+        res.send({
+            items: data[0],
+            count: data[1][0]['TotalItems']
+        });
     });
 })
 
+router.get("/currentemp", (req, res) => {
+    var query = `
+        SELECT *, Active=1 as Active FROM company.employees
+        WHERE idEmployee = ${connection.escape(req.query.id)}`;
+
+    connection.query(query,(err, data) => {
+        if(err) return console.log(err);
+        res.send(data);
+    });
+
+})
 
 router.delete("/delete", (req, res) => {
     var query = `
