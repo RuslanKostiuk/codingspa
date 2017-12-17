@@ -4,6 +4,7 @@
         "host":"localhost",
         "database":"Company",
         "user":"root",
-        "password":"rula5575"
+        "password":"rula5575",
+        "multipleStatements": "true"
     }
 }
